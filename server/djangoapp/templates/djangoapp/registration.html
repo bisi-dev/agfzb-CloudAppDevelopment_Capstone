@@ -45,29 +45,29 @@
         </div>        
     </nav>
 
-    <form action="{% url 'djangoapp:registration' %}" method="post" class="jumbotron bg-light">
+    <form action="{% url 'djangoapp:registration' %}" method="post" class="jumbotron" style="background: none">
             <div class="form-group row">
                 <div class="col-xs-4">
                     <label for="username"><b>User Name</b></label>
-                    <input class="form-control" type="text" placeholder="Enter User Name: " name="username" required>
+                    <input style="background-color: #fff7c6;" class="form-control" type="text" placeholder="Enter User Name: " name="username" required>
                 </div>
             </div>   
             <div class="form-group row">
                 <div class="col-xs-4">             
                     <label for="firstname"><b>First Name</b></label>
-                    <input class="form-control" type="text" placeholder="Enter First Name: " name="firstname" required>
+                    <input style="background-color: #fff7c6;" class="form-control" type="text" placeholder="Enter First Name: " name="firstname" required>
                 </div>
             </div>  
             <div class="form-group row">
                 <div class="col-xs-4">                 
                     <label for="lastname"><b>Last Name</b></label>
-                    <input class="form-control" type="text" placeholder="Enter Last Name: " name="lastname" required>
+                    <input style="background-color: #fff7c6;" class="form-control" type="text" placeholder="Enter Last Name: " name="lastname" required>
                 </div>
             </div>   
             <div class="form-group row">
                 <div class="col-xs-4"> 
                     <label for="psw"><b>Password</b></label>
-                    <input class="form-control" type="password" placeholder="Enter Password: " name="psw" required>
+                    <input style="background-color: #fff7c6;" class="form-control" type="password" placeholder="Enter Password: " name="psw" required>
                 </div>
             </div>  
               {% csrf_token %}
