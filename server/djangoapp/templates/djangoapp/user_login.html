@@ -12,15 +12,16 @@
     <script src="https://unpkg.com/bootstrap-table@1.18.2/dist/extensions/filter-control/bootstrap-table-filter-control.min.js"></script>
 
 </head>
+
 <body>
     <nav class="navbar navbar-light bg-dark navbar-dark">
         <div class="container-fluid">
             <div class="navbar-header">
                 <p class="navbar-brand lead">Best Cars</p>
                 <a class="navbar-brand" href="{% url 'djangoapp:index' %}">Home</a>
-                <a class="navbar-brand font-weight-bolder" href="#">About us</a>
+                <a class="navbar-brand" href="{% url 'djangoapp:about' %}">About us</a>
                 <a class="navbar-brand" href="{% url 'djangoapp:contact' %}">Contact us</a>
-            </div>  
+            </div> 
             <ul class="nav navbar-nav navbar-right">
                 {% if user.is_authenticated %}
                 <li>
@@ -40,12 +41,31 @@
                      </form>
                 </li>
                 {% endif %}
-            </ul>                    
+            </ul>                               
         </div>        
     </nav>
-    <h4 class="jumbotron bg-light">
-        Welcome to Best Cars dealership, home to the best cars in North America. We sell domestic and imported cars at reasonable prices.
-    </h4>
+
+    <form action="{% url 'djangoapp:login' %}"  method="post" class="jumbotron bg-light">
+        {% csrf_token %}
+        <div class="form-group row">
+            <div class="col-xs-4">
+                <label for="username"><b>User Name</b></label>
+                <input class="form-control" type="text" placeholder="Enter User Name: " name="username" required>
+            </div>
+        </div>
+        <div class="form-group row">       
+            <div class="col-xs-4">
+                <label for="psw"><b>Password</label>
+                <input class="form-control" type="password" placeholder="Enter Password: " name="psw" required>
+            </div>
+        </div>
+        <div class="form-group row">       
+            <div class="col-xs-4">
+                <button class="btn btn-primary" type="submit">Login</button>
+            </div>
+        </div>
+    </form>
+
     <footer class="fixed-bottom border bg-dark">
         <div class="container text-center">
             <a class="text-white" href="{% url 'djangoapp:index' %}">Home</a>

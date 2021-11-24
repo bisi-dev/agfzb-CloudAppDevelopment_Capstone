@@ -18,9 +18,9 @@
             <div class="navbar-header">
                 <p class="navbar-brand lead">Best Cars</p>
                 <a class="navbar-brand" href="{% url 'djangoapp:index' %}">Home</a>
-                <a class="navbar-brand font-weight-bolder" href="#">About us</a>
+                <a class="navbar-brand" href="{% url 'djangoapp:about' %}">About us</a>
                 <a class="navbar-brand" href="{% url 'djangoapp:contact' %}">Contact us</a>
-            </div>  
+            </div>   
             <ul class="nav navbar-nav navbar-right">
                 {% if user.is_authenticated %}
                 <li>
@@ -44,7 +44,7 @@
         </div>        
     </nav>
     <h4 class="jumbotron bg-light">
-        Welcome to Best Cars dealership, home to the best cars in North America. We sell domestic and imported cars at reasonable prices.
+        <div>User logged out.</div>
     </h4>
     <footer class="fixed-bottom border bg-dark">
         <div class="container text-center">
