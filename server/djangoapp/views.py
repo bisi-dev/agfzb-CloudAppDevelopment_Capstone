@@ -9,7 +9,7 @@ from django.contrib import messages
 from datetime import datetime
 import logging
 import json
-from .restapis import get_dealers_from_cf, get_dealer_by_state_from_cf
+from .restapis import get_dealers_from_cf, get_dealer_by_state_from_cf, get_dealer_reviews_from_cf, post_request
 
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
@@ -94,18 +94,50 @@ def get_dealerships(request):
     context = {}
     if request.method == "GET":
         url = "https://83a2235a.eu-gb.apigw.appdomain.cloud/api/dealership"
-        #dealerships = get_dealers_from_cf(url)
-        dealerships = get_dealer_by_state_from_cf(url,'TX')
-        dealer_names = ' '.join([dealer.short_name for dealer in dealerships])
+        dealerships = get_dealers_from_cf(url)
+        #dealerships = get_dealer_by_state_from_cf(url,'TX')
+        dealer_names = ' '.join([dealer.short_name+" - " for dealer in dealerships])
         return HttpResponse(dealer_names)
         #return render(request, 'djangoapp/index.html', context)
 
 
 # Create a `get_dealer_details` view to render the reviews of a dealer
-# def get_dealer_details(request, dealer_id):
-# ...
+def get_dealer_details(request, dealer_id):
+    context = {}
+    if request.method == "GET":
+        url = "https://83a2235a.eu-gb.apigw.appdomain.cloud/api/review"
+        reviews = get_dealer_reviews_from_cf(url, dealer_id)
+       #reviews_result = ' '.join([str(review)+" "+review.sentiment for review in reviews])
+        reviews_result = ' '.join([str(review)+" ----Sentiment:"+review.sentiment for review in reviews])
+        return HttpResponse(reviews_result)
+
 
 # Create a `add_review` view to submit a review
-# def add_review(request, dealer_id):
-# ...
+def add_review(request, dealer_id):
 
+    print("add_review")
+
+    if request.user.is_authenticated:
+        review = dict()
+        review["time"] = datetime.utcnow().isoformat()
+        review["dealership"] = dealer_id
+        review["review"] = "This is a great car dealer"
+
+        review["name"] = "Upkar Lidder"
+        review["purchase"] = "false"
+        review["purchase_date"] = "02/16/2021"
+        review["car_make"] = "Audi"
+        review["car_model"] = "SUV"
+        review["car_year"] = "2021"
+
+        json_payload = dict()
+        json_payload["review"] = review
+
+        url = "https://83a2235a.eu-gb.apigw.appdomain.cloud/api/review"
+
+        result =  post_request(url, json_payload)
+        print(result)
+        return HttpResponse("POST result: "+str(result))
+    else:
+        print("Not autenticated")
+        return HttpResponse("User not authenticated")
