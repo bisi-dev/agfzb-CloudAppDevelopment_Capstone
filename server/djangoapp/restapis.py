@@ -41,6 +41,8 @@ def get_dealers_from_cf(url, **kwargs):
     results = []
 
     json_result = get_request(url)
+
+    
     if json_result:
         dealers = json_result['body']['dealerships']
 
@@ -64,7 +66,10 @@ def get_dealer_reviews_from_cf(url, dealer_Id):
     results = []
 
     json_result = get_request(url, dealerId=dealer_Id)
-    if json_result:
+
+    print(json_result)
+
+    if json_result['statusCode'] == 200:
         reviews = json_result['body']['data']
 
         for review in reviews:
@@ -77,6 +82,7 @@ def get_dealer_reviews_from_cf(url, dealer_Id):
             results.append(review_obj)
 
     return results
+    
 
 
 def get_dealer_by_state_from_cf(url, st):
