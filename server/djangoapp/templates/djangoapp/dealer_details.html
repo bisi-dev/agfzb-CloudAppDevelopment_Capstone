@@ -41,28 +41,43 @@
                 </ul>                               
             </div>        
         </nav>
-        <div class="card-deck">
-        <div class="card-columns">
-            {% for review in reviews_list %}
-                    <div class="card">
-                        {% if review.sentiment == "positive" %}
-                            <img class="card-img-left" width="50px" height="50px" src="{{MEDIA_URL}}/emoji/positive.png">
-                        {% endif %}
-                        {% if review.sentiment == "negative" %}
-                            <img class="card-img-left" width="50px" height="50px" src="{{MEDIA_URL}}/emoji/negative.png">
-                        {% endif %}
-                        {% if review.sentiment == "neutral" %}
-                            <img class="card-img-left" width="50px" height="50px" src="{{MEDIA_URL}}/emoji/neutral.png">
-                        {% endif %}
-                        <div class="card-body">
-                            <h5 class="card-title font-weight-bold">{{review.car_make}}, {{review.car_model}}</h5>
-                            <h5 class="card-title font-weight-bold">{{review.car_year}}</h5>
-                            <p class="card-text font-weight-light">{{review.review}}</p>
-                        </div>
-                    </div>
-            {% endfor %}
+        <div class="jumbotron" style="background: none">      
+        <h3 class="card border-0">Reviews for {{dealer.full_name}}</h3> 
+        
+        {% if reviews_list%}    
+        <div class="container">    
+            <div class="card-deck">
+                <div class="card-columns">                    
+                    {% for review in reviews_list %}
+                            <div class="card">
+                                {% if review.sentiment == "positive" %}
+                                    <img class="card-img-left" width="50px" height="50px" src="{{MEDIA_URL}}/emoji/positive.png">
+                                {% endif %}
+                                {% if review.sentiment == "negative" %}
+                                    <img class="card-img-left" width="50px" height="50px" src="{{MEDIA_URL}}/emoji/negative.png">
+                                {% endif %}
+                                {% if review.sentiment == "neutral" %}
+                                    <img class="card-img-left" width="50px" height="50px" src="{{MEDIA_URL}}/emoji/neutral.png">
+                                {% endif %}
+                                <div class="card-body">
+                                    <h5 class="card-title font-weight-bold">{{review.car_make}}, {{review.car_model}}</h5>
+                                    <h5 class="card-title font-weight-bold">{{review.car_year}}</h5>
+                                    <p class="card-text font-weight-light">{{review.review}}</p>
+                                </div>
+                            </div>
+                    {% endfor %}
+                </div>
+            </div>
         </div>
-    </div>
+        {% else %}
+        <div class="alert alert-warning" role="alert">
+            No reviews found for this dealer
+        </div>
+        <div>
+            You could add a review
+        </div> 
+        {% endif %}
+        </div>
 
     </body>
 

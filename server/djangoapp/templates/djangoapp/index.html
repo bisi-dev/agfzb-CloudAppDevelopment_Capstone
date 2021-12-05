@@ -45,10 +45,9 @@
         </div>        
     </nav>
 
-    <!--Add a dealer table here -->
-
-    <table class="table" id="table" data-filter-control="true">
-        <thead>
+    <div class="jumbotron"  style="background: none">
+    <table class="table table-sm " id="table" data-filter-control="true" >
+        <thead class="table-dark bg-dark" >
             <tr>
                 <th data-field="id">ID</th>
                 <th data-field="dealer_name">Dealer name</th>
@@ -58,7 +57,7 @@
                 <th data-field="state" data-filter-control="select">State</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody class="table-hover">
             {% for dealer in dealership_list %}
                 <tr>
                     <td>{{dealer.id}}</td>
@@ -71,16 +70,8 @@
             {% endfor %}
         </tbody>
     </table>
+    </div>>
 
-
-
-        <footer class="fixed-bottom border bg-dark">
-            <div class="container text-center">
-                <a class="text-white" href="{% url 'djangoapp:index' %}">Home</a>
-                <a class="text-white" href="{% url 'djangoapp:about' %}">About us</a>
-                <a class="text-white" href="{% url 'djangoapp:contact' %}">Contact us</a>
-            </div>
-        </footer>
     </body>
     <script>
         $(function() {
